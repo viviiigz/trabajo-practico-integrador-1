@@ -14,6 +14,7 @@ export const register = async (req, res) => {
     biography,
     avatar_url,
     birth_date,
+    role
   } = req.body;
   try {
     const hashedPassword = await hashPassword(password);
@@ -22,6 +23,7 @@ export const register = async (req, res) => {
       username: username,
       email: email,
       password: hashedPassword,
+      role: role
     });
 
     await Profile.create({
