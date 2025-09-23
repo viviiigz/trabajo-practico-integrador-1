@@ -1,6 +1,18 @@
 import { body, param} from "express-validator"
 import { User } from "../../models/user.model.js"
 
+
+export const validateUserIdInParams = [
+  param('id')
+    .isInt({ min: 1 }).withMessage('El ID debe ser un número entero y positivo.')
+    .custom(async (value, { req }) => {
+      const user = await User.findByPk(value);
+      if (!user) {
+        throw new Error('El usuario con el ID especificado no existe.');
+      }
+    }),
+];
+
 export const createUserValidator = [
   body("username")
     .notEmpty()

@@ -1,7 +1,7 @@
 import express from "express";
 import "dotenv/config" 
 import { routes } from "./src/routes/index.js";
-import sequelize from "./src/config/database.js";
+import { sequelize } from "./src/config/database.js";
 import cookieParser from "cookie-parser";
 
 const app = express();

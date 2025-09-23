@@ -8,7 +8,7 @@ import {
 import { authAdminMiddleware } from "../middlewares/authAdmin.js";
 import { authMiddleware } from "../middlewares/auth.js";
 import { validator } from "../middlewares/validator.js";
-import {  updateUserValidator,
+import {  updateUserValidator, validateUserIdInParams
 } from "../middlewares/validations/user.validator.js";
 
 export const userRouter = Router();
@@ -19,12 +19,12 @@ userRouter.get(
   "/users/:id",
   authMiddleware,
   authAdminMiddleware,
-  validator,
   getUserById
 );
 
 userRouter.put(
   "/users/:id",
+  validateUserIdInParams,
   updateUserValidator,
   validator,
   authMiddleware,
@@ -34,8 +34,9 @@ userRouter.put(
 
 userRouter.delete(
   "/users/:id",
+  validateUserIdInParams,
+  validator,
   authMiddleware,
   authAdminMiddleware,
-  validator,
   deleteUser
 );

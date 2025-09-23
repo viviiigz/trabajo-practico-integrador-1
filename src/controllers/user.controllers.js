@@ -1,3 +1,4 @@
+import { Article } from "../models/article.model.js";
 import { Profile } from "../models/profile.model.js";
 import { User } from "../models/user.model.js";
 
@@ -9,10 +10,17 @@ export const getAllUsers = async (req, res) => {
           model: Profile,
           as: "profile"
         },
+        {
+          model:Article,
+          as: "articles",
+          paranoid:false,
+          attributes: ['id', 'title', 'status', 'created_at', 'deleted_at']
+
+        }
       ],
       attributes: { exclude: ["password"]},
     });
-    return res.status(200).json(users);
+    return res.status(200).json(users); 
   } catch (error) {
     res.status(500).json({mesagge: "Error interno del servidor.", error});
   }
@@ -27,6 +35,12 @@ export const getUserById = async (req, res) => {
         {
           model: Profile,
           as: "profile"
+        },
+        {
+          model: Article,
+          as: "articles",
+          paranoid: false,
+          atributes: ['id', 'tittle', 'status', 'created_at', 'deleted_at']
         }
       ],
       attributes: { exclude: ["password"]}
