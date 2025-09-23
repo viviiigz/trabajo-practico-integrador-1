@@ -14,7 +14,7 @@ export const register = async (req, res) => {
     biography,
     avatar_url,
     birth_date,
-    role
+    role,
   } = req.body;
   try {
     const hashedPassword = await hashPassword(password);
@@ -23,7 +23,7 @@ export const register = async (req, res) => {
       username: username,
       email: email,
       password: hashedPassword,
-      role: role
+      role: role,
     });
 
     await Profile.create({
@@ -104,7 +104,7 @@ export const profile = async (req, res) => {
   try {
     //id del ususario del token
     const userId = req.user.id;
-//buscamos al usuario y a su perfil en la db
+    //buscamos al usuario y a su perfil en la db
     const userWithProfile = await User.findByPk(userId, {
       include: [
         {
@@ -114,7 +114,7 @@ export const profile = async (req, res) => {
       ],
       attributes: { exclude: ["password"] }, //no queremos la contraseña
     });
-//si no estan entonces error
+    //si no estan entonces error
     if (!userWithProfile || !userWithProfile.profile) {
       return res.status(404).json({ msg: "Perfil no encontrado." });
     }
@@ -132,11 +132,11 @@ export const profile = async (req, res) => {
   } catch (error) {
     console.error(error);
     return res.status(500).json({
-      msg: "Error interno del servidor", error
+      msg: "Error interno del servidor",
+      error,
     });
   }
 };
-
 
 export const updateProfileAuthenticate = async (req, res) => {
   try {
@@ -158,7 +158,8 @@ export const updateProfileAuthenticate = async (req, res) => {
   } catch (error) {
     console.error(error);
     return res.status(500).json({
-      msg: "Error interno del servidor.", error
+      msg: "Error interno del servidor.",
+      error,
     });
   }
 };

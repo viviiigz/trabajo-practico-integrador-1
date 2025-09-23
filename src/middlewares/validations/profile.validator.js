@@ -34,7 +34,9 @@ export const createProfileValidator = [
   body("birth_date")
     .optional()
     .isISO8601()
-    .withMessage("Fecha de nacimiento no válido. El orden correcto es: YY/MM/DD")
+    .withMessage(
+      "Fecha de nacimiento no válido. El orden correcto es: YY/MM/DD"
+    )
     .toDate(),
 ];
 
@@ -79,4 +81,3 @@ export const updateProfileValidator = [
     .exists()
     .withMessage("No se puede cambiar el usuario asociado a un perfil."),
 ];
-

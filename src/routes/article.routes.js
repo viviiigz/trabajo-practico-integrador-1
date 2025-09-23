@@ -1,41 +1,43 @@
 import { Router } from "express";
-import { createArticle, deleteArticle, getArticleById, getPublishedArticles, getUserArticleById, getUserArticles, updateArticle } from "../controllers/article.controllers.js"
+import {
+  createArticle,
+  deleteArticle,
+  getArticleById,
+  getPublishedArticles,
+  getUserArticleById,
+  getUserArticles,
+  updateArticle,
+} from "../controllers/article.controllers.js";
 import { authMiddleware } from "../middlewares/auth.js";
-import { updateArticleValidator, createArticleValidator,validateArticleIdInParams } from "../middlewares/validations/article.validator.js";
+import {
+  updateArticleValidator,
+  createArticleValidator,
+  validateArticleIdInParams,
+} from "../middlewares/validations/article.validator.js";
 import { authAdminMiddleware } from "../middlewares/authAdmin.js";
-import {ownerMiddleware} from "../middlewares/authOwner.js"
+import { ownerMiddleware } from "../middlewares/authOwner.js";
 import { validator } from "../middlewares/validator.js";
 
-export const articleRouter = Router()
-
+export const articleRouter = Router();
 
 articleRouter.post(
   "/articles",
-  authMiddleware, 
-  createArticleValidator, 
-  validator, 
+  authMiddleware,
+  createArticleValidator,
+  validator,
   createArticle
 );
 
-articleRouter.get(
-  "/articles",
-  authMiddleware,
-  getPublishedArticles
-);
+articleRouter.get("/articles", authMiddleware, getPublishedArticles);
 
-articleRouter.get(
-  "/articles/user",
-  authMiddleware,
-  getUserArticles
-);
+articleRouter.get("/articles/user", authMiddleware, getUserArticles);
 
 articleRouter.get(
   "/articles/:id",
-  authMiddleware, 
-  validateArticleIdInParams, 
+  authMiddleware,
+  validateArticleIdInParams,
   getArticleById
 );
-
 
 articleRouter.get(
   "/articles/user/:id",
@@ -57,9 +59,9 @@ articleRouter.put(
 
 articleRouter.delete(
   "/articles/:id",
-  validateArticleIdInParams, 
+  validateArticleIdInParams,
   validator,
   authMiddleware,
-  ownerMiddleware, 
+  ownerMiddleware,
   deleteArticle
 );

@@ -8,42 +8,41 @@ export const getAllUsers = async (req, res) => {
       include: [
         {
           model: Profile,
-          as: "profile"
-        },
-        {
-          model:Article,
-          as: "articles",
-          paranoid:false,
-          attributes: ['id', 'title', 'status', 'created_at', 'deleted_at']
-
-        }
-      ],
-      attributes: { exclude: ["password"]},
-    });
-    return res.status(200).json(users); 
-  } catch (error) {
-    res.status(500).json({mesagge: "Error interno del servidor.", error});
-  }
-};
-
-export const getUserById = async (req, res) => {
-  try {
-    const {id} = req.params;
-
-    const user = await User.findByPk(id, {
-      include:[
-        {
-          model: Profile,
-          as: "profile"
+          as: "profile",
         },
         {
           model: Article,
           as: "articles",
           paranoid: false,
-          atributes: ['id', 'tittle', 'status', 'created_at', 'deleted_at']
-        }
+          attributes: ["id", "title", "status", "created_at", "deleted_at"],
+        },
       ],
-      attributes: { exclude: ["password"]}
+      attributes: { exclude: ["password"] },
+    });
+    return res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ mesagge: "Error interno del servidor.", error });
+  }
+};
+
+export const getUserById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const user = await User.findByPk(id, {
+      include: [
+        {
+          model: Profile,
+          as: "profile",
+        },
+        {
+          model: Article,
+          as: "articles",
+          paranoid: false,
+          atributes: ["id", "tittle", "status", "created_at", "deleted_at"],
+        },
+      ],
+      attributes: { exclude: ["password"] },
     });
 
     if (!user) {
@@ -54,7 +53,8 @@ export const getUserById = async (req, res) => {
     return res.status(200).json(user);
   } catch (error) {
     res.status(500).json({
-      mesagge: "Error interno del servidor.", error
+      mesagge: "Error interno del servidor.",
+      error,
     });
   }
 };
@@ -72,15 +72,15 @@ export const createUser = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       mesagge: "Error interno del servidor.",
-      error
+      error,
     });
   }
 };
 
 export const updateUser = async (req, res) => {
   try {
-    const {id} = req.params;
-    const updateData = req.body 
+    const { id } = req.params;
+    const updateData = req.body;
 
     const user = await User.findByPk(id, {
       attributes: { exclude: ["password"] },
@@ -93,16 +93,15 @@ export const updateUser = async (req, res) => {
     await user.update(updateData);
 
     return res.status(200).json({
-        mesagge: "Usuario actualizado correctamente.",
-        user: user,
-      });
-    
+      mesagge: "Usuario actualizado correctamente.",
+      user: user,
+    });
   } catch (error) {
     return res.status(500).json({
       mesagge: "Error interno del servidor.",
-      error
+      error,
     });
-  }; 
+  }
 };
 export const deleteUser = async (req, res) => {
   try {
@@ -120,9 +119,9 @@ export const deleteUser = async (req, res) => {
       user: user,
     });
   } catch (error) {
-    res.status(500).json({   
-      mesagge: "Error interno del servidor", 
-      error
+    res.status(500).json({
+      mesagge: "Error interno del servidor",
+      error,
     });
   }
 };

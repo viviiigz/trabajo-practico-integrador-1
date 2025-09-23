@@ -1,14 +1,14 @@
-import { body, param} from "express-validator"
-import { User } from "../../models/user.model.js"
-
+import { body, param } from "express-validator";
+import { User } from "../../models/user.model.js";
 
 export const validateUserIdInParams = [
-  param('id')
-    .isInt({ min: 1 }).withMessage('El ID debe ser un número entero y positivo.')
+  param("id")
+    .isInt({ min: 1 })
+    .withMessage("El ID debe ser un número entero y positivo.")
     .custom(async (value, { req }) => {
       const user = await User.findByPk(value);
       if (!user) {
-        throw new Error('El usuario con el ID especificado no existe.');
+        throw new Error("El usuario con el ID especificado no existe.");
       }
     }),
 ];
@@ -78,9 +78,7 @@ export const updateUserValidator = [
     .custom(async (value, { req }) => {
       const user = await User.findOne({ where: { username: value } });
       if (user && user.id !== parseInt(req.params.id)) {
-        throw new Error(
-          "El nombre de usuario ya está en uso."
-        );
+        throw new Error("El nombre de usuario ya está en uso.");
       }
       return true;
     }),
@@ -92,9 +90,7 @@ export const updateUserValidator = [
     .custom(async (value, { req }) => {
       const user = await User.findOne({ where: { email: value } });
       if (user && user.id !== parseInt(req.params.id)) {
-        throw new Error(
-          "El correo electrónico ya está en uso."
-        )
+        throw new Error("El correo electrónico ya está en uso.");
       }
       return true;
     }),

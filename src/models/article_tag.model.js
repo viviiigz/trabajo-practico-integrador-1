@@ -12,7 +12,7 @@ export const ArticleTag = sequelize.define(
       autoIncrement: true,
     },
   },
-   { createdAt: "created_at", updatedAt: "updated_at" }
+  { createdAt: "created_at", updatedAt: "updated_at" }
 );
 
 Article.belongsToMany(Tag, {

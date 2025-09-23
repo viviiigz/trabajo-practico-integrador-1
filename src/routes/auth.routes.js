@@ -17,7 +17,7 @@ import {
 export const authRouter = Router();
 
 // rutas autentic7adas
-authRouter.post("/auth/logout",authMiddleware, logout);
+authRouter.post("/auth/logout", authMiddleware, logout);
 authRouter.get("/auth/profile", authMiddleware, profile);
 authRouter.put(
   "/auth/profile",
